@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+  <meta charset="UTF-8" />
+  <title>Editar Documento</title>
+</head>
+<body>
+  <h1>Editar Documento</h1>
+  <textarea id="conteudo" rows="10" cols="60">Digite aqui o novo conteúdo</textarea>
+  <br />
+  <button onclick="enviar()">Atualizar Documento</button>
+
+  <p id="resposta"></p>
+
+  <script>
+    function enviar() {
+      const texto = document.getElementById("conteudo").value;
+      fetch("https://script.google.com/macros/s/AKfycbzjE6bCUxMTokD8_gUdagxOC4O3FHR1cS2tJYxR1v-jBLen1M8ITFv2qazgAMwHQS5cwg/exec", {
+        method: "POST",
+        body: new URLSearchParams({ conteudo: texto }),
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded"
+        }
+      })
+      .then(res => res.text())
+      .then(txt => {
+        document.getElementById("resposta").innerText = txt;
+      });
+    }
+  </script>
+</body>
+</html>
